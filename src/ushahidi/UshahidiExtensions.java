@@ -183,7 +183,7 @@ public class UshahidiExtensions
                                                               .compareTo(time2) < 0)
             || current.getDate().compareTo(time1) == 0
             || current.getDate().compareTo(time2) == 0)
-          pen.println(current.toString());
+          printIncident(pen,current);
       } // while more incidents
   } // findIncidentsBetweenDate(UshahidiClient, LocalDateTime, LocalDateTime) 
 
@@ -213,21 +213,47 @@ public class UshahidiExtensions
     UshahidiIncident current;
     ArrayList<UshahidiIncident> ushahidiIncidentList =
         new ArrayList<UshahidiIncident>();
-        while (client.hasMoreIncidents())
+    while (client.hasMoreIncidents())
+      {
+        current = client.nextIncident();
+        if ((current.getDate().compareTo(time1) > 0 && current.getDate()
+                                                              .compareTo(time2) < 0)
+            || current.getDate().compareTo(time1) == 0
+            || current.getDate().compareTo(time2) == 0)
           {
-            current = client.nextIncident();
-            if ((current.getDate().compareTo(time1) > 0 && current.getDate()
-                                                                  .compareTo(time2) < 0)
-                || current.getDate().compareTo(time1) == 0
-                || current.getDate().compareTo(time2) == 0)
-              {
-                ushahidiIncidentList.add(current);
-              } // if current incident's date is between time1 and time2
-          } // while more incidents
-        UshahidiIncident[] ushahidiArray = new UshahidiIncident[ushahidiIncidentList.size()];
-        ushahidiArray = ushahidiIncidentList.toArray(ushahidiArray);
-        return ushahidiArray;
+            ushahidiIncidentList.add(current);
+          } // if current incident's date is between time1 and time2
+      } // while more incidents
+    UshahidiIncident[] ushahidiArray =
+        new UshahidiIncident[ushahidiIncidentList.size()];
+    ushahidiArray = ushahidiIncidentList.toArray(ushahidiArray);
+    return ushahidiArray;
   } // buildArrayBetweenDates(UshahidiClient, LocalDateTime, LocalDateTime)
+
+  /**
+   * Filters all of the Ushahidi incidents that has a title that contains name
+   * @param client
+   * @param name
+   * @return
+   * @throws Exception
+   */
+  public static Vector<UshahidiIncident> filterName(UshahidiClient client,
+                                                    String name) throws Exception
+  {
+    UshahidiIncident current;
+    Vector<UshahidiIncident> vec = new Vector<UshahidiIncident>();
+    while (client.hasMoreIncidents())
+      { //http://stackoverflow.com/questions/2275004/in-java-how-to-check-
+        //if-a-string-contains-a-substring-ignoring-the-case
+        current=client.nextIncident();
+        if (current.getTitle().toLowerCase().contains(name.toLowerCase()))
+          {
+            printIncident(pen,current);
+            vec.add(current); 
+          }
+      } // while more incidents
+    return vec;
+  } // filterName(UshahidiClient, String)
 
   /**
    * Creates a vector of all the incidents that fall within a certain distance
@@ -255,7 +281,7 @@ public class UshahidiExtensions
                       current.getLocation().getLongitude()) <= distance)
           {
             vec.add(current);
-            pen.println(current.toString()); // print the incidents for 
+            printIncident(pen,current); // print the incidents for 
                                              // testing purposes
           } // if current incident's location is within distance of location
       } // while more incidents
