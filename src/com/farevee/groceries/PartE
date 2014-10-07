@@ -1,0 +1,30 @@
+BulkContainer extends BulkItem, whereas Package 
+and ManyPackages are just different implementations of Item
+We feel that extending is more concise than implementing a 
+similar class twice. The down side of extending is that it can be 
+harder to follow the code because you have to look at the parent class as well.
+ 
+ 
+ For cart.remove and cart.merge we chose to add a getName() method for every
+ Item. We felt that this was the simplest and most concise way to do it. 
+ Making fields public is bad coding style because you might not want other stuff accesing it
+ The equals method seems like more work that would be less efficient
+ hasName seems like what we did but more complicated.
+ 
+ As they are implemented right now, Package and Nonfood could be the same class,
+ but because they are describing different objects, it would make more sense to
+ keep them as separate classes. It would also make more sense for writing maintainable
+ code, in case we ever want to add something to either Package or NonFood and not the other.
+ 
+ 1. There are fewer possible grocery cart items in Walker's implementation. This makes it easier
+    to understand because there is less to think about, and it makes categorizing items easier.
+ 2. The cost is a double instead of an int, so price may be easier to read/understand, but
+    rounding errors will be more common. Thus, using int for cost is a better idea.
+ 3. There are not separate classes for Units and Weight - they are built into 
+    the fields of the other classes. Having classes for Units and Weights makes for more intuitive
+    constructor use, and makes it easier to add new units and weights later.
+ 4. Walker's implementation includes beverages. Having a Beverage class makes the cart more realistic,
+    and our implementation does not explicitly include liquids.
+ 5. Walker's implementation includes the volume of the package. This is information that isn't really
+    necessary for the types of methods that Cart uses.
+ 
