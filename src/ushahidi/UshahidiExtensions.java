@@ -256,7 +256,7 @@ public class UshahidiExtensions
           {
             printIncident(pen, current);
             vec.add(current);
-          }
+          } // if title contains name
       } // while more incidents
     return vec;
   } // filterName(UshahidiClient, String)

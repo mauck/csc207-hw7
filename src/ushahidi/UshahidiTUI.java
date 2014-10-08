@@ -51,7 +51,7 @@ public class UshahidiTUI
           {
             pen.println("Invalid URL");
           } // catch
-      }
+      } // while
 
     int lat, lon, kilometers;
     while (true)
