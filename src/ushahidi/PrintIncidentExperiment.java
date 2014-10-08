@@ -40,14 +40,14 @@ public class PrintIncidentExperiment
 
     //One that requires connecting to the server
     UshahidiClient webclient =
-    new UshahidiWebClient("http://ushahidi1.grinnell.edu/sandbox/");
+        new UshahidiWebClient("http://ushahidi1.grinnell.edu/sandbox/");
     UshahidiExtensions.printIncident(pen, webclient.nextIncident());
 
     pen.println("-------------------------------------------------------");
 
     //Create TestingClient and find extremes
     UshahidiTestingClient tests =
-    UshahidiExtensions.ushahidiTestingClientCreator();
+        UshahidiExtensions.ushahidiTestingClientCreator();
     UshahidiExtensions.findExtremes(tests);
 
     pen.println("-------------------------------------------------------");
@@ -56,10 +56,11 @@ public class PrintIncidentExperiment
     UshahidiExtensions.findExtremes(webclient);
 
     pen.println("-------------------------------------------------------");
-    
+
     UshahidiTestingClient tests1 =
         UshahidiExtensions.ushahidiTestingClientCreator();
-    //Find incidents from TestingClient between January 1, 2000, and September 30, 2015
+    //Find incidents from TestingClient between January 1, 
+    //2000, and September 30, 2015
     UshahidiExtensions.findIncidentBetweenDate(tests1,
                                                LocalDateTime.of(2000,
                                                                 Month.JANUARY,
@@ -69,7 +70,7 @@ public class PrintIncidentExperiment
                                                                 30, 18, 30));
 
     pen.println("-------------------------------------------------------");
-    
+
     UshahidiClient webclient1 =
         new UshahidiWebClient("http://ushahidi1.grinnell.edu/sandbox/");
     //Find incidents from webclient between September 7, 2014 (12:00 AM) and
@@ -83,7 +84,7 @@ public class PrintIncidentExperiment
                                                                 7, 15, 30));
 
     pen.println("-------------------------------------------------------");
-    
+
     UshahidiClient webclient2 =
         new UshahidiWebClient("http://ushahidi1.grinnell.edu/sandbox/");
     //Find incidents from the webclient within 300 miles of Grinnell

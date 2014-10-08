@@ -1,7 +1,6 @@
 package ushahidi;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 
@@ -33,7 +32,7 @@ public class UshahidiTUI
     String url = null;
     String input;
     String toSearchFor;
-    int choice; // what to filter by
+    int choice; // user's choice of what to filter by
     UshahidiClient webclient;
     boolean gettingURL = true;
     while (gettingURL)
@@ -106,13 +105,9 @@ public class UshahidiTUI
                       pen.print("--> ");
                       pen.flush();
                       kilometers = Integer.valueOf(eyes.readLine());
-                      UshahidiExtensions.findIncidentWithinDistance(webclient,
-                                                                    new UshahidiLocation(
-                                                                                         0,
-                                                                                         "",
-                                                                                         lat,
-                                                                                         lon),
-                                                                    kilometers);
+                      UshahidiExtensions.findIncidentWithinDistance
+                        (webclient, new UshahidiLocation
+                                          (0,"",lat,lon),kilometers);
                       break;
                     case 3:
                       pen.println("Enter a string to search for in titles:");
